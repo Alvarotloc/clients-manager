@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 const VerCliente = (): JSX.Element => {
   const [cliente, setCliente] = useState<ClientesType>();
   const [cargando, setCargando] = useState<boolean>(true);
+  const { id } = useParams();
   useEffect(() => {
     const obtenerCliente = async () => {
       try {
@@ -20,7 +21,6 @@ const VerCliente = (): JSX.Element => {
     };
     obtenerCliente();
   }, []);
-  const { id } = useParams();
   return (
     <div>
       {cargando ? (
