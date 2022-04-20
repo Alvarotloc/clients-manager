@@ -1,11 +1,12 @@
 import { Formik, Form, Field } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { fetchForm } from "../helpers/fetchForm";
 import { ClientesType } from "../types/clientes";
 import Alerta from "./Alerta";
 import Spinner from "./Spinner";
 
-interface valoresForm {
+export interface valoresForm {
   nombre: string;
   empresa: string;
   email: string;
@@ -36,19 +37,16 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
       .positive("El número no es válido"),
   });
 
-  const handleSubmit = (values: valoresForm) => {
+  const handleSubmit = async(values: valoresForm) => {
     try {
-      const url = "http://localhost:4000/clientes";
-
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => res.json());
-
-      navigate("/clientes");
+      if(cliente.id){
+        const url = `http://localhost:4000/clientes/${cliente.id}`;
+        await fetchForm(url,'PUT',values);
+        return navigate("/clientes");
+      }
+        const url = "http://localhost:4000/clientes";
+        await fetchForm(url,'POST',values);
+        navigate("/clientes");
     } catch (error) {
       console.log(error);
     }

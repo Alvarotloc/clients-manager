@@ -22,9 +22,11 @@ const EditarCliente = () => {
   }, []);
   return (
     <>
-    <h1 className="font-black text-4xl text-blue-900">Editar Cliente</h1>
-    <p className="mt-3">Utilice este formulario para editar datos un cliente</p>
-    <Formulario cliente={cliente} cargando={cargando}/>
+    <h1 className="font-black text-4xl text-blue-900">{cliente?.nombre ? 'Editar Cliente' : 'No hay resultados'}</h1>
+    <p className="mt-3">{cliente?.nombre ? 'Utilice este formulario para editar datos un cliente' : 'Pruebe con otro cliente'}</p>
+    {cliente?.nombre && (
+          <Formulario cliente={cliente} cargando={cargando}/>
+    )}
 </>
   )
 }
