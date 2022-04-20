@@ -4,6 +4,7 @@ import Layout from './layout/Layout';
 import EditarCliente from "./pages/EditarCliente";
 import Inicio from "./pages/Inicio";
 import NuevoCliente from "./pages/NuevoCliente";
+import VerCliente from './pages/VerCliente';
 
 const App = ():JSX.Element => {
   return (
@@ -13,6 +14,7 @@ const App = ():JSX.Element => {
           <Route index element={<Inicio />}/>
           <Route path="nuevo" element={<NuevoCliente  />}/>
           <Route path="editar/:id" element={<EditarCliente />}/>
+          <Route path=":id" element={<VerCliente />}/>
         </Route>
       </Routes>
     </BrowserRouter>
