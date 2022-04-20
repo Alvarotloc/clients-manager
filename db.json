@@ -1,28 +1,12 @@
 {
   "clientes": [
     {
-      "nombre": "Papaia",
-      "empresa": "Papaiota SL",
-      "email": "alvarotloc@gmail.com",
-      "telefono": "1234567",
-      "notas": "Proveedor de papaias",
-      "id": 2
-    },
-    {
       "nombre": "Solidity",
       "empresa": "Solidity Entreprise",
       "email": "solidity@solidity.com",
       "telefono": "1234567",
       "notas": "",
       "id": 3
-    },
-    {
-      "nombre": "Alvaro",
-      "empresa": "Aldemy",
-      "email": "alvarotloc@alumnos.cei.es",
-      "telefono": "1923742789",
-      "notas": "",
-      "id": 4
     }
   ]
 }

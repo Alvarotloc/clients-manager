@@ -7,7 +7,7 @@ interface ICliente {
 }
 
 const Cliente = ({cliente, handleEliminar}:ICliente):JSX.Element => {
-    const {nombre,email,empresa,telefono,notas,id} = cliente;
+    const {nombre,email,empresa,telefono,id} = cliente;
     const navigate = useNavigate();
   return (
     <tr className="border-b transition-colors hover:bg-gray-50">
