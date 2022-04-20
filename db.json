@@ -1,14 +1,6 @@
 {
   "clientes": [
     {
-      "nombre": "Papaia Desactt",
-      "empresa": "Papaiota SL",
-      "email": "alvarotloc@gmail.com",
-      "telefono": "1234567",
-      "notas": "Proveedor de papaias",
-      "id": 1
-    },
-    {
       "nombre": "Papaia",
       "empresa": "Papaiota SL",
       "email": "alvarotloc@gmail.com",
