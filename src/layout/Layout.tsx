@@ -1,6 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 
 const Layout = (): JSX.Element => {
+
+  const location = useLocation();
+  const urlActual = location.pathname;
+
+
   return (
     <div className="md:flex md:min-h-screen">
       <div className="md:w-1/4 bg-blue-900 px-5 py-10">
@@ -8,21 +13,21 @@ const Layout = (): JSX.Element => {
           CRM - Clientes
         </h2>
         <nav className="mt-10">
-          <a
-            href="/clientes"
-            className="text-white text-2xl block mt-2 transition-colors hover:text-blue-300"
+          <Link
+            to="/clientes"
+            className={`${urlActual === "/clientes" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
           >
             Clientes
-          </a>
-          <a
-            href="/clientes/nuevo"
-            className="text-white text-2xl block mt-2 transition-colors hover:text-blue-300"
+          </Link>
+          <Link
+            to="/clientes/nuevo"
+            className={`${urlActual === "/clientes/nuevo" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
           >
             Nuevo Cliente
-          </a>
+          </Link>
         </nav>
       </div>
-      <div className="md:w-3/4">
+      <div className="md:w-3/4 p-10">
         <Outlet />
       </div>
     </div>
