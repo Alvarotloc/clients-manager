@@ -5,7 +5,9 @@ import { fetchForm } from "../helpers/fetchForm";
 import { ClientesType } from "../types/clientes";
 import Alerta from "./Alerta";
 import Spinner from "./Spinner";
+//importamos Formik para validar el formulario, importamos useNavigate para redireccionar, yup para más validación y el resto de funciones, tipos, y componentes a utilizar
 
+//tipamos los valores que va a tener el formulario
 export interface valoresForm {
   nombre: string;
   empresa: string;
@@ -14,14 +16,17 @@ export interface valoresForm {
   notas: string;
 }
 
+//tipamos las props que va a tener el formulario
 interface IForm {
   cliente: ClientesType;
   cargando: boolean;
 }
 
 const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
+  //definimos la constante navigate para utilizar el hook
   const navigate = useNavigate();
 
+  //creamos el schema que valida los campos obligatorios del form
   const nuevoClienteSchema = Yup.object().shape({
     nombre: Yup.string()
       .min(3, "El nombre es demasiado corto")
@@ -37,13 +42,17 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
       .positive("El número no es válido"),
   });
 
+
+  //creamos la función que ha de ejecutarse cuando hayamos hecho submit en el formulario
   const handleSubmit = async(values: valoresForm) => {
     try {
+      //preguntamos, si existe cliente.id significa que estamos editando, por lo que mandamos con el método put y la url tiene acceso al id
       if(cliente.id){
         const url = `${import.meta.env.VITE_API_URL}/${cliente.id}`;
         await fetchForm(url,'PUT',values);
         return navigate("/");
       }
+      //si no se cumple, simplemente añadimos el registro a la bbdd
         const url = import.meta.env.VITE_API_URL;
         await fetchForm(url,'POST',values);
         navigate("/");
@@ -52,14 +61,18 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
     }
   };
 
+  //si está cargando mostramos el spinner de carga, si no, el componente
   return cargando ? (
     <Spinner />
   ) : (
     <div className="bg-white mt-10 px-5 py-10 rounded-md shadow-md md:w-3/4 mx-auto">
       <h1 className="text-gray-600 font-bold text-xl uppercase text-center">
+        {/* diferenciamos entre editar y crear mediante una de las propiedades del objeto cliente */}
         {cliente?.nombre ? "Editar Cliente" : "Agregar Cliente"}
       </h1>
       <Formik
+      // definimos los valores iniciales del form, esta sintaxis es parecida a un operador ternario, ya que si existe usa la propiedad y si no lo deja vacio
+      // teléfono ha de ponerse como string para que no aparezca un 0 directamente en el form
         initialValues={{
           nombre: cliente?.nombre ?? "",
           empresa: cliente?.empresa ?? "",
@@ -67,13 +80,16 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
           telefono: cliente?.telefono ?? "",
           notas: cliente?.notas ?? "",
         }}
+        //con esta opción permitimos que se puedan reasignar valores, es algo propio de formik
         enableReinitialize={true}
+        //añadimos la funcionalidad del submit y reseteamos form
         onSubmit={async (values: valoresForm, { resetForm }) => {
           await handleSubmit(values);
           resetForm();
         }}
         validationSchema={nuevoClienteSchema}
       >
+        {/* Empieza el formulario como tal, cada field es un input pero con sintaxis de formik, por cada input comprueba que no existan errores y si existen los manda de prop a alerta para avisar al usuario */}
         {({ errors, touched }) => {
           return (
             <Form className="mt-10">
@@ -163,6 +179,7 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
   );
 };
 
+//necesitamos de estas defaultProp ya que pueden o no ser pasadas al componente, dependiendo si se accede desde editar o de crear
 Formulario.defaultProps = {
   cliente: {},
   cargando: false,

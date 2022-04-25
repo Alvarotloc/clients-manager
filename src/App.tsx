@@ -6,6 +6,7 @@ import NuevoCliente from "./pages/NuevoCliente";
 import VerCliente from './pages/VerCliente';
 
 const App = ():JSX.Element => {
+  // creamos la estructura de react router en el que lo principal y que siempre va a estar es el layout, del cual dependen el resto de rutas, que irán a parar al outlet en el componente Layout
   return (
     <BrowserRouter>
       <Routes>

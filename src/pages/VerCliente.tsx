@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import { ClientesType } from "../types/clientes";
 import Spinner from "../components/Spinner";
 
+//creamos el componente / page VerCliente
+
 const VerCliente = (): JSX.Element => {
+  //creamos el state de la page, cliente y cargando.
   const [cliente, setCliente] = useState<ClientesType>();
   const [cargando, setCargando] = useState<boolean>(true);
+  //sacamos el id de los params de la url para hacer fetch a un registro en específico
   const { id } = useParams();
+  //hacemos la llamada a fetch cuando el componente esté listo, mediante el hook de useEffect
   useEffect(() => {
     const obtenerCliente = async () => {
       try {
         const url = `${import.meta.env.VITE_API_URL}/${id}`;
+        //como es una petición get solo pasamos url, ya que es un fetch normal, sin la función helper que creamos
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
         setCliente(resultado);
@@ -23,8 +29,10 @@ const VerCliente = (): JSX.Element => {
   }, []);
   return (
     <div>
+      {/* si está cargando muestra el spinner de carga, si no muestra el componente */}
       {cargando ? (
         <Spinner />
+        // si encuentra cliente.nombre (como propiedad requerida, podría ser cliente?.email etc) muestra todo el componente con sus datos únicos
       ) : cliente?.nombre ? (
         <>
           <h1 className="font-black text-4xl text-blue-900">
@@ -70,6 +78,7 @@ const VerCliente = (): JSX.Element => {
           )}
         </>
       ) : (
+        // si no encuentra esa propiedad significa que no se ha completado correctamente y no hay resultados válidos que mostrar
         <>
           <h1 className="font-black text-4xl text-blue-900">
             No hay resultados

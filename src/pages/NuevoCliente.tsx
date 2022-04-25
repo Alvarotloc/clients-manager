@@ -1,4 +1,5 @@
 import Formulario from '../components/Formulario';
+//creamos el componente que será visto al acceder al área de crear cliente. Este componente utiliza el componente del formulario SIN PROPS (para eso tiene el defaultValue)
 const NuevoCliente = ():JSX.Element => {
   return (
     <>
