@@ -42,11 +42,11 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
       if(cliente.id){
         const url = `${import.meta.env.VITE_API_URL}/${cliente.id}`;
         await fetchForm(url,'PUT',values);
-        return navigate("/clientes");
+        return navigate("/");
       }
         const url = import.meta.env.VITE_API_URL;
         await fetchForm(url,'POST',values);
-        navigate("/clientes");
+        navigate("/");
     } catch (error) {
       console.log(error);
     }

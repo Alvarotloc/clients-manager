@@ -14,13 +14,13 @@ const Layout = (): JSX.Element => {
         </h2>
         <nav className="mt-10">
           <Link
-            to="/clientes"
+            to="/"
             className={`${urlActual === "/clientes" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
           >
             Clientes
           </Link>
           <Link
-            to="/clientes/nuevo"
+            to="/nuevo"
             className={`${urlActual === "/clientes/nuevo" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
           >
             Nuevo Cliente

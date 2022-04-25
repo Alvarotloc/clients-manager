@@ -1,12 +1,20 @@
 {
   "clientes": [
     {
-      "nombre": "Solidity",
+      "nombre": "Alfonso",
       "empresa": "Solidity Entreprise",
-      "email": "solidity@solidity.com",
-      "telefono": "1234567",
-      "notas": "",
-      "id": 3
+      "email": "alvarotloc@gmail.com",
+      "telefono": "12345678",
+      "notas": "Hola",
+      "id": 1
+    },
+    {
+      "nombre": "Solidityyy",
+      "empresa": "Solidity Entreprise",
+      "email": "alvarotloc@gmail.com",
+      "telefono": "1924387",
+      "notas": "asdfg",
+      "id": 2
     }
   ]
 }
