@@ -52,12 +52,18 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
         //hacemos una copia de los valores actuales para añadir el cliente.id
         let valores = values;
         valores['id'] = cliente.id;
-        await fetchForm('PUT',valores);
-        return navigate("/");
+        let response = await fetchForm('PUT',valores);
+        if(response === 'ok'){
+          return navigate("/");
+        }
+        console.log('Error en bbdd'); //si llega a esta línea hay error en la bbdd
       }
       //si no se cumple, simplemente añadimos el registro a la bbdd
-        await fetchForm('POST',values);
-        navigate("/");
+        let {resultado} = await fetchForm('POST',values);
+        if(resultado === 'ok'){
+          return navigate("/");
+        }
+        console.log('Error en bbdd'); //si llega a esta línea hay error en la bbdd
     } catch (error) {
       throw error;
     }

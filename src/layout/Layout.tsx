@@ -17,13 +17,13 @@ const Layout = (): JSX.Element => {
           {/* utilizamos Link para que no haga la navegación como tal, si no entre las pages de react router */}
           <Link
             to="/"
-            className={`${pathname === "/clientes" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
+            className={`${pathname === "/" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
           >
             Clientes
           </Link>
           <Link
             to="/nuevo"
-            className={`${pathname === "/clientes/nuevo" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
+            className={`${pathname === "/nuevo" ? 'text-blue-300' : 'text-white'} text-2xl block mt-2 transition-colors hover:text-blue-300`}
           >
             Nuevo Cliente
           </Link>

@@ -35,10 +35,13 @@ const Inicio = (): JSX.Element => {
     if (confirmar) {
       try {
         const objId:idType = {id}
-        fetchForm("DELETE",objId);
+        let response = await fetchForm("DELETE",objId);
+        if(response === 'ok'){
         //para actualizar también la parte del cliente hacemos un filter para que solo se queden aquellos que no coincidan con el id
         const arrayClientes = clientes.filter((cliente) => cliente.id !== id);
-        setClientes(arrayClientes);
+        return setClientes(arrayClientes);
+        }
+        console.log('Error en la bbdd'); // si llega a esta línea hay error en bbdd
       } catch (error) {
         console.log(error);
       }
@@ -47,28 +50,30 @@ const Inicio = (): JSX.Element => {
   //creamos la tabla de clientes, estilizada mediante tailwind
   return (
     <>
-      <h1 className="font-black text-4xl text-blue-900">Clientes</h1>
-      <p className="mt-3">Administra tus clientes</p>
+      <h1 className="font-black text-4xl text-blue-900">{clientes.length > 0 ? 'Clientes' : 'No hay clientes'}</h1>
+      <p className="mt-3">{clientes.length > 0 ? 'Administra tus clientes' : 'Añada clientes en la pestaña "Nuevo Cliente"'}</p>
 
-      <table className="w-full mt-5 table-auto shadow bg-white">
-        <thead className="bg-blue-800 text-white">
-          <tr>
-            <th className="p-2">Nombre</th>
-            <th className="p-2">Contacto</th>
-            <th className="p-2">Empresa</th>
-            <th className="p-2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clientes.map((cliente) => (
-            <Cliente
-              key={cliente.id}
-              cliente={cliente}
-              handleEliminar={handleEliminar}
-            />
-          ))}
-        </tbody>
-      </table>
+      {clientes.length > 0 && (
+              <table className="w-full mt-5 table-auto shadow bg-white">
+              <thead className="bg-blue-800 text-white">
+                <tr>
+                  <th className="p-2">Nombre</th>
+                  <th className="p-2">Contacto</th>
+                  <th className="p-2">Empresa</th>
+                  <th className="p-2">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clientes.map((cliente) => (
+                  <Cliente
+                    key={cliente.id}
+                    cliente={cliente}
+                    handleEliminar={handleEliminar}
+                  />
+                ))}
+              </tbody>
+            </table>
+      )}
     </>
   );
 };
