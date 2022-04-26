@@ -17,7 +17,8 @@ const EditarCliente = ():JSX.Element => {
     const obtenerCliente = async () => {
       try {
         //como es una petición get solo pasamos url, ya que es un fetch normal, sin la función helper que creamos
-        const respuesta = await fetch(`http://localhost:4000/clientes/${id}`);
+        const url = `${import.meta.env.VITE_API_URL}${id}` || `http://localhost:4000/clientes/${id}`;
+        const respuesta = await fetch(url);
         const resultado = await respuesta.json();
         //la petición nos trae un array con un objeto, por lo que para acceder al objeto hay que sacarlo del array
         setCliente(resultado[0]);

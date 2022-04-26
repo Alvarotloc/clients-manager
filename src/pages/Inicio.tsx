@@ -19,7 +19,8 @@ const Inicio = (): JSX.Element => {
     const obtenerClientes = async () => {
       try {
         //como es un simple fetch para conseguir todos los clientes disponibles no hacemos uso de la función helper
-        const respuesta = await fetch("http://localhost:4000/clientes/");
+        const url = import.meta.env.VITE_API_URL || "http://localhost:4000/clientes/";
+        const respuesta = await fetch(url);
         const resultado = await respuesta.json();
         setClientes(resultado);
       } catch (error) {
