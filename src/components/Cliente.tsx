@@ -15,18 +15,18 @@ const Cliente = ({ cliente, handleEliminar }: ICliente): JSX.Element => {
   //retorna cada parte de la tabla que va a ocupar un cliente
   return (
     <tr className="border-b transition-colors hover:bg-gray-50">
-      <td className="p-3">{nombre}</td>
+      <td className="p-3 text-center">{nombre}</td>
       <td className="p-3">
-        <p>
+        <p className="text-center">
           <span className="text-gray-800 uppercase font-bold">Email: </span>{" "}
           {email}{" "}
         </p>
-        <p>
+        <p className="text-center">
           <span className="text-gray-800 uppercase font-bold">Teléfono: </span>{" "}
           {telefono}{" "}
         </p>
       </td>
-      <td className="p-3">{empresa}</td>
+      <td className="p-3 text-center">{empresa}</td>
       <td className="p-3">
         {/* tanto ver como editar simplemente hacen redirecciones (aunque en base al ID), y el botón eliminar ejecuta la función handleEliminar */}
         <button

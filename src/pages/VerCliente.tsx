@@ -15,15 +15,16 @@ const VerCliente = (): JSX.Element => {
   useEffect(() => {
     const obtenerCliente = async () => {
       try {
-        const url = `${import.meta.env.VITE_API_URL}/${id}`;
         //como es una petición get solo pasamos url, ya que es un fetch normal, sin la función helper que creamos
-        const respuesta = await fetch(url);
+        const respuesta = await fetch(`http://localhost:4000/clientes/${id}`);
         const resultado = await respuesta.json();
-        setCliente(resultado);
+
+       //la petición nos trae un array con un objeto, por lo que para acceder al objeto hay que sacarlo del array
+        setCliente(resultado[0]);
+        setCargando(false);
       } catch (error) {
-        console.log(error);
+        throw error;
       }
-      setCargando(false);
     };
     obtenerCliente();
   }, []);

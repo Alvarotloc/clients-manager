@@ -3,6 +3,11 @@ import { ClientesType } from "../types/clientes";
 import Cliente from "../components/Cliente";
 import { fetchForm } from "../helpers/fetchForm";
 
+//creamos el tipo ID para poder pasarlo como parámetro a la función helper
+export type idType = {
+  id : number;
+}
+
 //creamos componente inicio, que ocupará el lugar de outlet en primer lugar
 
 const Inicio = (): JSX.Element => {
@@ -13,12 +18,12 @@ const Inicio = (): JSX.Element => {
   useEffect(() => {
     const obtenerClientes = async () => {
       try {
-        const url = import.meta.env.VITE_API_URL;
-        const respuesta = await fetch(url);
+        //como es un simple fetch para conseguir todos los clientes disponibles no hacemos uso de la función helper
+        const respuesta = await fetch("http://localhost:4000/clientes/");
         const resultado = await respuesta.json();
         setClientes(resultado);
       } catch (error) {
-        console.log(error);
+        throw error;
       }
     };
     obtenerClientes();
@@ -29,8 +34,8 @@ const Inicio = (): JSX.Element => {
     const confirmar = confirm("¿Deseas eliminar este cliente?");
     if (confirmar) {
       try {
-        const url = `http://localhost:4000/clientes/${id}`;
-        fetchForm(url, "DELETE");
+        const objId:idType = {id}
+        fetchForm("DELETE",objId);
         //para actualizar también la parte del cliente hacemos un filter para que solo se queden aquellos que no coincidan con el id
         const arrayClientes = clientes.filter((cliente) => cliente.id !== id);
         setClientes(arrayClientes);

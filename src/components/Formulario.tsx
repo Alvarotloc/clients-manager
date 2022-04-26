@@ -14,6 +14,7 @@ export interface valoresForm {
   email: string;
   telefono: number | string;
   notas: string;
+  id ?: number;
 }
 
 //tipamos las props que va a tener el formulario
@@ -48,16 +49,17 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
     try {
       //preguntamos, si existe cliente.id significa que estamos editando, por lo que mandamos con el método put y la url tiene acceso al id
       if(cliente.id){
-        const url = `${import.meta.env.VITE_API_URL}/${cliente.id}`;
-        await fetchForm(url,'PUT',values);
+        //hacemos una copia de los valores actuales para añadir el cliente.id
+        let valores = values;
+        valores['id'] = cliente.id;
+        await fetchForm('PUT',valores);
         return navigate("/");
       }
       //si no se cumple, simplemente añadimos el registro a la bbdd
-        const url = import.meta.env.VITE_API_URL;
-        await fetchForm(url,'POST',values);
+        await fetchForm('POST',values);
         navigate("/");
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
@@ -89,7 +91,7 @@ const Formulario = ({ cliente, cargando }: IForm): JSX.Element => {
         }}
         validationSchema={nuevoClienteSchema}
       >
-        {/* Empieza el formulario como tal, cada field es un input pero con sintaxis de formik, por cada input comprueba que no existan errores y si existen los manda de prop a alerta para avisar al usuario */}
+        {/* Empieza el formulario como tal, cada Field es un input pero con sintaxis de formik, por cada input comprueba que no existan errores y si existen los manda de prop a alerta para avisar al usuario */}
         {({ errors, touched }) => {
           return (
             <Form className="mt-10">
